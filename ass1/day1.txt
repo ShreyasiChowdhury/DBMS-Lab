@@ -1,0 +1,131 @@
+//1. Create and insert given data in table customer
+
+CREATE TABLE customer(
+	cust_id number(3),
+	cust_firstn varchar(15),
+	cust_lastn varchar(15),
+	territory varchar(15),
+	credit_limit float(6,2),
+	mgr_id number(3),
+	dob date,
+	marritorial_status varchar(10),
+	gen char(1),
+	income number(7)
+);
+
+INSERT INTO customer VALUES(147,'Ishwarya','Roberts','AMERICA',600.34,147,'21-MAR-44','Single','F',130000);
+
+INSERT INTO customer VALUES(148,'Gustav','Steen','AMERICA',600,148,'10-APR-50','Married','M',110000);
+
+INSERT INTO customer VALUES(352,'Kenneth','Redford','ITALY',3600.65,147,'13-JUL-71','Single','F',30000);
+
+INSERT INTO customer VALUES(360,'Helmet','Capshow','CHAINA',3600.65,148,'01-AUG-77','Married','M',190000);
+
+INSERT INTO customer VALUES(363,'Cathy','Lambert','ITALY',2400,147,'31-AUG-77','Married','M',50000);
+
+INSERT INTO customer VALUES(378,'Meg','Sen','THAILAND',3700.78,148,'30-SEP-53','Married','M',50000);
+
+INSERT INTO customer VALUES(380,'Maryl','Holden','INDIA',3700,148,'10-OCT-61','Single','F',150000);
+
+INSERT INTO customer VALUES(477,'Richard','Capola','ITALY',500.76,147,'30-OCT-81','Married','F',50000);
+
+INSERT INTO customer VALUES(449,'Rick','Romero','ITALY',1500,147,'10-DEC-51','Single','F',30000);
+
+INSERT INTO customer VALUES(451,'Redley','Hackman','ITALY',700.59,147,'11-JAN-50','Single','F',150000);
+
+INSERT INTO customer VALUES(458,'Robert','Deniro','INDIA',3700,148,'12-MAR-86','Single','F',150000);
+
+SET LINESIZE 300;
+
+//2. Alter table and Add column stay_from_year
+
+ALTER TABLE customer
+ADD stay_from_year number(4);
+
+//3. Set value of stay_from_year as 2001 for Italy/America and 2003 otherwise
+
+UPDATE customer
+SET stay_from_year=2003;
+
+UPDATE customer
+SET stay_from_year=2001
+WHERE territory='ITALY';
+
+UPDATE customer
+SET stay_from_year=2001
+WHERE territory='AMERICA';
+
+//4. Display credit limit attribute for America
+
+SELECT credit_limit
+FROM customer
+WHERE territory='AMERICA';
+
+// 5. Delete the record corresponding to Meg Sen
+
+DELETE FROM customer
+WHERE cust_firstn='Meg';
+
+// 6. Show all attributes for Italy or Show all data in the territory Italy
+
+SELECT *
+FROM customer
+WHERE territory='ITALY';
+
+// 7. If territory is India and status is Single set value of credit to 7000
+
+UPDATE customer
+SET credit_limit=7000
+WHERE territory='INDIA';
+
+// 8. Rename cust_fname to first_name
+
+ALTER TABLE customer
+RENAME COLUMN cust_firstn TO first_name;
+
+// 9. Rename cust_lname to last_name
+
+ALTER TABLE customer
+RENAME COLUMN cust_lastn TO last_name;
+
+// 10. Create table cust1 from the old table customer (copy structure as well as data using CTAS statement)
+
+CREATE TABLE cust1
+AS SELECT * FROM customer;
+
+// 11. Create tables cust2 without values of cust1 using CTAS statement
+
+CREATE TABLE cust2
+AS SELECT * FROM cust1
+WHERE 1=0;
+
+// 12. Create tables cust3 with attributes cust_id, cust_fname, cust_lname, income from old customer table only 5 rows (using CTAS statement)
+
+CREATE TABLE cust3
+AS SELECT cust_id, first_name, last_name, income
+FROM customer
+WHERE cust_id>=147 and cust_id<=363;
+
+// 13. Create tables cust4 with attributes name customer_id, firstname, lastname, income from old customer table (using CTAS statement)
+
+CREATE TABLE cust4
+AS SELECT cust_id, first_name, last_name, income
+FROM customer;
+
+ALTER TABLE cust4
+RENAME COLUMN cust_id TO customer_id;
+
+ALTER TABLE cust4
+RENAME COLUMN first_name TO firstname;
+
+ALTER TABLE cust4
+RENAME COLUMN last_name TO lastname;
+
+// 14. Drop column income from cust1
+
+ALTER TABLE cust1
+DROP COLUMN income;
+
+// 15. Rename table cust1 to cust_one
+
+RENAME cust1 TO cust_one;
