@@ -49,11 +49,7 @@ SET stay_from_year=2003;
 
 UPDATE customer
 SET stay_from_year=2001
-WHERE territory='ITALY';
-
-UPDATE customer
-SET stay_from_year=2001
-WHERE territory='AMERICA';
+WHERE territory='ITALY' OR territory='AMERICA';
 
 //4. Display credit limit attribute for America
 
