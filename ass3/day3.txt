@@ -1,0 +1,112 @@
+// 22. Increase the size of the column cust_id by 5
+
+ALTER TABLE customer
+MODIFY cust_id number(8);
+
+// 23. Suppose the customer with id no 352 has changed her last name & now it is just same as the customer with id no 360
+
+UPDATE customer
+SET last_name=(SELECT last_name FROM customer WHERE cust_id=360)
+WHERE cust_id=352;
+
+// 24a. Find the name whose name starts with R
+
+SELECT first_name FROM customer
+WHERE first_name LIKE 'R%';
+
+// 24b. Find the name whose name starts with Y
+
+SELECT first_name FROM customer
+WHERE first_name LIKE 'Y%';
+
+// 25. Display the records where territory=America & crd_lmt=600
+
+SELECT * FROM customer
+WHERE territory='AMERICA' AND credit_limit=600;
+
+// 26. Display the records of all Indian customers whose income>20000
+
+SELECT * FROM customer
+WHERE territory='INDIA' AND income>20000;
+
+// 27. Display the name of the customer having crd_lmt between 2000 and 7000
+
+SELECT * FROM customer
+WHERE credit_limit>=2000 AND credit_limit<=7000;
+
+// 28. Display the records of the customers having income 130000, 190000, 50000 using only one query
+
+SELECT * FROM customer
+WHERE income IN(130000,190000,50000);
+
+// 29. Display the records in ascending order of first name
+
+SELECT * FROM customer
+ORDER by first_name ASC;
+
+// 30. Display the records in descending order of income
+
+SELECT * FROM customer
+ORDER by income DESC;
+
+// 31. Insert a duplicate record and display all the records
+
+INSERT INTO customer
+SELECT * FROM customer
+WHERE ROWNUM<2;
+
+// 32. Suppose your friend wants to select a name from the names of the customers. Show the different names of the customer
+
+SELECT DISTINCT first_name, last_name FROM customer;
+
+// 33. Find the birth year of each customer
+
+SELECT dob, TO_CHAR(dob,'YYYY')
+AS birth_year FROM customer;
+
+// 34. Show all customer who born before 2000
+
+SELECT * FROM customer
+WHERE TO_CHAR(dob,'YYYY')<2000;
+
+// 35. Show details of youngest customer
+
+SELECT * FROM customer
+WHERE ((sysdate-dob)/365)=(SELECT MIN((sysdate-dob)/365) FROM customer;
+
+// 36. Display full name of each customer with heading under "Full Name"
+
+SELECT (first_name || ' ' || last_name) AS full_name FROM customer;
+
+// 37. Display customer id with their manager id. (Check the relationship between them)
+
+SELECT DISTINCT cust_id, mgr_id FROM customer;
+
+// 38. Display all manager names
+
+SELECT DISTINCT first_name||' '||last_name
+AS manager_name FROM customer
+WHERE cust_id IN(SELECT DISTINCT mgr_id FROM customer);
+
+// 39. Show all customer whose manager name is 'Ishwarya'
+
+SELECT * FROM customer
+WHERE mgr_id=(SELECT DISTINCT cust_id FROM customer
+WHERE first_name='Ishwarya');
+
+// 40. Display all manager name with their customer name
+
+SELECT DISTINCT C.first_name || ' ' || C.last_name AS customer,
+M.first_name || ' ' || M.last_name AS manager FROM customer C, customer M
+WHERE C.mgr_id=M.cust_id;
+
+// 41. Display the customer details whose income is lowest
+
+SELECT * FROM customer
+WHERE income=(SELECT DISTINCT MIN(income) FROM customer);
+
+// 42. Find Male Manager Name
+
+SELECT DISTINCT first_name||' '||last_name
+AS manager_name FROM customer
+WHERE cust_id IN(SELECT DISTINCT mgr_id FROM customer) AND gen='M';
