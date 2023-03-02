@@ -1,0 +1,57 @@
+// Q. Create table dept with the following attributes:
+
+CREATE TABLE dept(
+	dept_id number(3) PRIMARY KEY,
+	dept_name varchar(15)
+);
+
+INSERT INTO dept VALUES(90, 'CSE');
+INSERT INTO dept VALUES(69, 'ECE');
+INSERT INTO dept VALUES(100, 'EE');
+INSERT INTO dept VALUES(110, 'EEE');
+
+// Q. Create table cust_100 with the following attributes:
+
+CREATE TABLE cust_100(
+	emp_id number(3) PRIMARY KEY,
+	first_name varchar(10) CHECK(first_name=INITCAP(first_name)),
+	last_name varchar(10) CHECK(last_name=INITCAP(last_name)) NOT NULL,
+	e_mail varchar(20) CHECK(e_mail=UPPER(e_mail)),
+	ph_no varchar(15),
+	hire_date date CHECK(hire_date>'01-JAN-1980'),
+	job_id varchar(10) CHECK(job_id LIKE 'FI%' OR
+	job_id LIKE 'AD%' OR job_id LIKE 'IT%'),
+	salary number(8,2) CHECK(salary>=4000 AND salary<=25000),
+	mgr_id number(3),
+	dept_id REFERENCES dept(dept_id)
+);
+
+INSERT INTO cust_100 VALUES(201, 'Aa', 'Bb', 'AB01@GMAIL>COM', '9000000001', '01-JAN-2001', 'FI', 10001, 301, 90);
+
+INSERT INTO cust_100 VALUES(202, 'Cc', 'Dd', 'CD02@GMAIL>COM', '9000000002', '02-JAN-2001', 'AD', 10002, 302, 100);
+
+INSERT INTO cust_100 VALUES(203, 'Ee', 'Ff', 'EF03@GMAIL>COM', '9000000003', '03-JAN-2001', 'FI', 10003, 303, 90);
+
+INSERT INTO cust_100 VALUES(204, 'Gg', 'Hh', 'GH04@GMAIL>COM', '9000000004', '04-JAN-2001', 'IT', 10004, 304, 110);
+
+INSERT INTO cust_100 VALUES(205, 'Ii', 'Jj', 'IJ05@GMAIL>COM', '9000000005', '05-JAN-2001', 'AD', 10005, 305, 69);
+
+INSERT INTO cust_100 VALUES(206, 'Kk', 'Ll', 'KL06@GMAIL>COM', '9000000006', '06-JAN-2001', 'AD', 10006, 306, 69);
+
+INSERT INTO cust_100 VALUES(207, 'Mm', 'Nn', 'MN07@GMAIL>COM', '9000000007', '07-JAN-2001', 'IT', 10007, 307, 100);
+
+INSERT INTO cust_100 VALUES(208, 'Oo', 'Pp', 'OP08@GMAIL>COM', '9000000008', '08-JAN-2001', 'AD', 10008, 308, 110);
+
+INSERT INTO cust_100 VALUES(209, 'Qq', 'Rr', 'QR09@GMAIL>COM', '9000000009', '09-JAN-2001', 'IT', 10009, 309, 110);
+
+INSERT INTO cust_100 VALUES(210, 'Ss', 'Tt', 'ST10@GMAIL>COM', '9000000010', '10-JAN-2001', 'AD', 10010, 310, 90);
+
+// Q. Create the following tables with the data types and constraints
+
+CREATE TABLE hello(
+	sid varchar(4) PRIMARY KEY CHECK (sid LIKE 's%'),
+	sname varchar(15) CHECK(sname=UPPER(sname)),
+	mname varchar(15)
+);
+
+INSERT INTO hello VALUES('s01', 'SHREYASI', 'Chowdhury');
