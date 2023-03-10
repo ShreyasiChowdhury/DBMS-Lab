@@ -120,7 +120,7 @@ SELECT * FROM sailor ORDER BY sname ASC;
 SELECT sname || ' ' || mname || ' ' || surname AS name FROM sailor;
 
 // 5) Select all distinct sailors name.
-SELECT DISTINCT sname || ' ' || mname || ' ' || surname AS name FROM sailor;
+SELECT DISTINCT sname FROM sailor;
 
 // 6) Show all distinct sailors names, ratings who have rating between 5 and 10.
 SELECT DISTINCT sname || ' ' || mname || ' ' || surname AS name, rating FROM sailor WHERE rating BETWEEN 5 AND 10;
