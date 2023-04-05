@@ -1,0 +1,72 @@
+// 33) Find names of sailors whose rating is > 6/7/8 using multirow subquery operator.
+SELECT sname FROM sailor WHERE rating > ANY(6,7,8);
+
+// 34) Find names of sailors whose rating is > 6 & 27 & 28 using multirow subquery operator.
+SELECT sname FROM sailor WHERE rating > ALL(6,7,8);
+
+// 35) Find average age of sailors with rating 10.
+SELECT AVG(age) AS average_age FROM sailor WHERE rating=10;
+
+// 36) Find the name of sailor who are older than oldest sailor of rating=10.
+SELECT sname FROM sailor WHERE age > (SELECT MAX(age) FROM sailor WHERE rating=10);
+
+// 37) Find the age of youngest sailor for each rating level.
+SELECT MIN(age), rating FROM sailor GROUP BY rating;
+
+// 38) Find the name of each sailor who is eligible to vote for each rating level.
+SELECT COUNT(*) FROM sailor WHERE age>=18 GROUP BY rating;
+
+// 39) Find the age of youngest sailor who is eligible to vote for each rating level with at least two such sailors.
+SELECT MIN(age), COUNT(*), rating FROM sailor WHERE age>=18 GROUP BY rating HAVING COUNT(*)>1;
+
+// 40) Find the average age of sailor for each rating level with at least two such sailors.
+SELECT AVG(age) FROM sailor GROUP BY rating HAVING COUNT(*)>1;
+
+// 41) For each red boat count the number of reservations for this boat.
+SELECT COUNT(*), bid FROM boat NATURAL JOIN reserve WHERE color='RED' GROUP BY bid;
+
+// 42) Find sailor with highest rating.
+SELECT sname FROM sailor WHERE rating = (SELECT MAX(rating) FROM sailor);
+
+// 44) Find those rating for which the average age of sailors is minimum overall rating.
+SELECT rating FROM sailor GROUP BY rating HAVING AVG(age) = (SELECT MIN(AVG(age)) FROM sailor GROUP BY rating);
+
+// 45) Find sailors who have reserved all boats.
+SELECT sname FROM sailor WHERE NOT EXISTS
+( (SELECT bid FROM boat) MINUS (SELECT bid FROM sailor, reserve WHERE reserve.sid=sailor.sid) );
+
+// 46) Display sname with left side padding by at least 3 *.
+SELECT LPAD (sname, (SELECT MAX(LENGTH(sname)) FROM sailor)+3, '*') AS name_star FROM sailor;
+
+// 47) Display length of each name.
+SELECT sname, LENGTH(sname) FROM sailor;
+
+// 48) Display all sailors’ names in uppercase.
+SELECT UPPER(sname) FROM sailor;
+
+// 49) Display all sailors’ names in lowercase.
+SELECT LOWER(sname) FROM sailor;
+
+// 50) Display all sailors’ names in sentence case.
+SELECT INITCAP(sname) FROM sailor;
+
+// 51) Display 4th to 7th letter of sailors’ name.
+SELECT substr(sname, 4, 4) FROM sailor;
+
+// 52) Display 4th and 7th letter of sailors’ name.
+SELECT substr(sname, 4, 1) AS 4th_letter, substr(sname, 7, 1) AS 7th_letter FROM sailor;
+
+// 53) Concat sid, sname.
+SELECT CONCAT(sid, CONCAT('_', sname)) AS sid_sname FROM sailor;
+
+// 54) Display square root of rating.
+SELECT SQRT(rating) FROM sailor;
+
+// 55) Display floor value of all ages.
+SELECT FLOOR(rating) FROM sailor;
+
+// 56) Display ceiling value of all ages.
+SELECT CEIL(rating) FROM sailor;
+
+// 57) Select all sname with 1st 2 letters off.
+SELECT substr(sname, 3, LENGTH(sname)) FROM sailor;
