@@ -1,0 +1,49 @@
+// 58) List months between today and reservation date.
+SELECT MONTHS_BETWEEN(sysdate,day) FROM reserve;
+
+// 59) Select day between today and reservation date.
+SELECT sysdate-day FROM reserve;
+
+// 60) Shift all reservation day by 2 months.
+SELECT ADD_MONTHS(day,2) FROM reserve;
+
+// 61) Shift all reservation day earlier by 3 months.
+SELECT ADD_MONTHS(day,-3) FROM reserve;
+
+// 62) Suppose after sailing they enjoy their next Monday as holiday. Find that day.
+SELECT NEXT_DAY(day,'Monday') FROM reserve;
+
+// 63) Display 3 * before and after each sname.
+SELECT RPAD((LPAD(sname, LENGTH(sname)+3, '*')), LENGTH(sname)+6, '*') AS name_star FROM sailor;
+
+// 64) Find the day when sailing ends.
+SELECT MAX(day) FROM reserve;
+
+// 65) Display all reservation day.
+SELECT TO_CHAR(day, 'day') FROM reserve;
+
+// 66) Find the position of ‘Kumar’ in the sailors’ name.
+SELECT INSTR(sname||mname||surname,'Kumar',1,1) FROM sailor;
+
+// 67) Display all sailors’ name order by its length.
+SELECT sname FROM sailor ORDER BY LENGTH(sname) ASC;
+
+// 68) Display sid, sname and availability of middle name which print as ‘available’ or not.
+SELECT sid, sname,
+(CASE WHEN mname is not null THEN 'Available'
+ELSE 'Not Available' END) as availability FROM sailor;
+
+// 69) Display all reservation day like ‘22nd March Twenty Ten’ and 12/09/1998.
+SELECT TO_CHAR(day, 'ddth Month Year'), TO_CHAR(day, 'dd/mm/yyyy') FROM reserve;
+
+// 70) Find the day of weekdays of reservation date.
+SELECT TO_CHAR(day, 'day') FROM reserve;
+
+// 71) Find the number of day of weekdays of reservation date.
+SELECT TO_CHAR(day, 'd') FROM reserve;
+
+// 72) Find the number of days passed upto reservation date of the year.
+SELECT TO_CHAR(day, 'ddd') FROM reserve;
+
+// 73) Display the number of weeks of the year of reservation day.
+SELECT TO_CHAR(day, 'ww') FROM reserve;
