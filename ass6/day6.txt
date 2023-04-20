@@ -54,7 +54,7 @@ SELECT INITCAP(sname) FROM sailor;
 SELECT substr(sname, 4, 4) FROM sailor;
 
 // 52) Display 4th and 7th letter of sailors’ name.
-SELECT substr(sname, 4, 1) AS 4th_letter, substr(sname, 7, 1) AS 7th_letter FROM sailor;
+SELECT substr(sname, 4, 1) AS f_letter, substr(sname, 7, 1) AS s_letter FROM sailor;
 
 // 53) Concat sid, sname.
 SELECT CONCAT(sid, CONCAT('_', sname)) AS sid_sname FROM sailor;
