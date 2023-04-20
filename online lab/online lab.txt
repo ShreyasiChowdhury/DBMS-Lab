@@ -1,0 +1,215 @@
+Q1
+declare
+	begin
+		dbms_output.put_line('Hello World');
+	end;
+/
+
+Hello World
+
+Q2
+CREATE TABLE CAreas(
+	Radius number(1),
+	Area number(10,2)
+);
+
+declare
+	ar CAreas.area%type;
+	begin
+		for i in 3..7
+		loop
+		ar:=(3.14*i*i);
+		insert into CAreas values(i,ar);
+		end loop;
+	end;
+/
+
+select * from CAreas;
+
+    RADIUS       AREA
+---------- ----------
+         3      28.26
+         4      50.24
+         5       78.5
+         6     113.04
+         7     153.86
+
+Q3
+begin
+	dbms_output.put_line(Sysdate);
+end;
+/
+
+20-APR-23
+
+Q4
+declare
+	n number;
+	f number:=1;
+	begin
+		n:=&n;
+		for i in 1..n
+		loop
+		f:=(f*i);
+		end loop;
+		dbms_output.put_line('Factorial is '||f);
+	end;
+/
+
+Enter value for n: 5
+old   5:                n:=&n;
+new   5:                n:=5;
+Factorial is 120
+
+Q5
+declare
+	n number;
+	flag number;
+	begin
+		n:=&n;
+		flag:=1;
+		if n<=1 then flag:=0;
+		else
+			for i in 2..n/2 loop
+				if n mod i = 0 then
+					flag:=0;
+				exit;
+				end if;
+			end loop;
+		end if;
+		if flag=1 then
+			dbms_output.put_line(n||' is prime');
+		else
+			dbms_output.put_line(n||' is not prime');
+		end if;
+	end;
+/
+
+Enter value for n: 7
+old   5:                n:=&n;
+new   5:                n:=7;
+7 is prime
+
+Q6
+declare
+	n number;
+	rem number;
+	rev number;
+	begin
+		n:=&n;
+		rev:=0;
+		rem:=0;
+		while n!=0
+		loop
+			rem:=mod(n,10);
+			rev:=rev*10+rem;
+			n:=floor(n/10);
+		end loop;
+		dbms_output.put_line('Reverse Number: '||rev);
+	end;
+/
+
+Enter value for n: 458
+old   6:                n:=&n;
+new   6:                n:=458;
+Reverse Number: 854
+
+Q7
+declare
+	a number;
+	b number;
+	temp number;
+	begin
+		a:=&a;
+		b:=&b;
+		temp:=a;
+		a:=b;
+		b:=temp;
+		dbms_output.put_line('First number: '||a||' Second number: '||b);
+	end;
+/
+
+Enter value for a: 15
+old   6:                a:=&a;
+new   6:                a:=15;
+Enter value for b: 48
+old   7:                b:=&b;
+new   7:                b:=48;
+First number: 48 Second number: 15
+
+Q8
+declare
+	n number;
+	rem number;
+	rev number;
+	num number;
+	begin
+		n:=&n;
+		num:=n;
+		rev:=0;
+		rem:=0;
+		while n!=0
+		loop
+			rem:=mod(n,10);
+			rev:=rev*10+rem;
+			n:=floor(n/10);
+		end loop;
+		if num=rev then
+			dbms_output.put_line(num||' is palindrome number');
+		else
+			dbms_output.put_line(num||' is not palindrome number');
+		end if;
+	end;
+/
+
+Enter value for n: 1991
+old   7:                n:=&n;
+new   7:                n:=1991;
+1991 is palindrome number
+
+Q9
+declare
+	y number;
+	begin
+		y:=&y;
+		if mod(y,4)=0 and mod(y,100)!=0 or mod(y,400)=0
+			then dbms_output.put_line(y || ' is a leap year');
+		else
+			dbms_output.Put_line(y || ' is not a leap year');
+		end if;
+	end;
+/
+
+Enter value for y: 1900
+old   4:                y:=&y;
+new   4:                y:=1900;
+1900 is not a leap year
+
+Q10
+declare
+	a number;
+	b number;
+	gcd number;
+	begin
+		a:=&a;
+		b:=&b;
+		for i in 1..a loop
+			if ((a mod i=0) and (b mod i=0)) then
+				gcd:=i;
+			end if;
+		end loop;
+		if gcd=1 then
+			dbms_output.put_line(a||' and '||b||' are coprime');
+		else
+			dbms_output.put_line(a||' and '||b||' are not coprime');
+		end if;
+	end;
+/
+
+Enter value for a: 5
+old   6:                a:=&a;
+new   6:                a:=5;
+Enter value for b: 91
+old   7:                b:=&b;
+new   7:                b:=91;
+5 and 91 are coprime
