@@ -1,0 +1,225 @@
+set serveroutput on;
+
+//Q 1. Write a PL/SQL program that takes marks as input and displays grade using if-else ladder.
+
+declare
+	m number(3);
+	begin
+		m:=&m;
+		if m>90 and m<=100 then
+			dbms_output.put_line('O');
+		elsif m>80 then
+			dbms_output.put_line('A');
+		elsif m>70 then
+			dbms_output.put_line('B');
+		elsif m>60 then
+			dbms_output.put_line('C');
+		elsif m>=30 then
+			dbms_output.put_line('D');
+		elsif m<30 then
+			dbms_output.put_line('F');
+		else
+			dbms_output.put_line('Invalid Input');
+		end if;
+	end;
+/
+
+//Q 2. Write a PL/SQL program to display all even numbers up to a number using simple loop.
+
+declare
+	n number;
+	begin
+		n:=&n;
+		for i in 1..n
+		loop
+			if mod(i,2)=0 then
+				dbms_output.put_line(i);
+			end if;
+		end loop;
+	end;
+/
+
+//Q 3. Write a PL/SQL program to find the factorial of a number using for loop.
+
+declare
+	n number;
+	fact number;
+	begin
+		n:=&n;
+		fact:=1;
+		for i in 1..n
+		loop
+			fact:=fact*i;
+		end loop;
+		dbms_output.put_line('Factorial of '||n||' is: '||fact);
+	end;
+/
+
+//Q 4. Write a PL/SQL program to display the Fibonacci series up to 20000 using while loop.
+
+declare
+	n number;
+	a number;
+	b number;
+	c number;
+	begin
+		n:=20000;
+		a:=0;
+		b:=1;
+		c:=a+b;
+		while c<=n
+		loop
+			dbms_output.put_line(c);
+			a:=b;
+			b:=c;
+			c:=a+b;
+		end loop;
+	end;
+/
+
+//Q 5. Write a PL/SQL program to insert random numbers in a table random_num (rand_no number(20)).
+
+CREATE TABLE random_num(
+	rand_no number(20)
+);
+
+declare
+	n random_num.rand_no%type;
+	begin
+		for i in 1..7
+		loop
+			n:=dbms_random.random();
+			insert into random_num values(n);
+		end loop;
+	end;
+/
+
+SELECT * FROM random_num;
+
+//Q 6. Write a PL/SQL program to fill up the table sphere (rad number(2), area number(10,2), volume number(15,2)) with radius values from 1-20.
+
+CREATE TABLE sphere(
+	rad number(2),
+	area number(10,2),
+	volume number(15,2)
+);
+
+declare
+	r sphere.rad%type;
+	a sphere.area%type;
+	v sphere.volume%type;
+	begin
+		for i in 1..20
+		loop
+			r:=i;
+			a:=(3.14*i*i);
+			v:=((4/3)*3.14*i*i*i);
+			insert into sphere values(r,a,v);
+		end loop;
+	end;
+/
+
+SELECT * FROM sphere;
+
+//Q 7. Write a PL/SQL program to display name, age, and rating from table sailor from user input sid.
+
+declare
+	s sailor.sid%type;
+	n sailor.sname%type;
+	a sailor.age%type;
+	r sailor.rating%type;
+	begin
+		s:='&sid';
+		select sname, age, rating into n,a,r from sailor where sid=s;
+		dbms_output.put_line('SID: '||s);
+		dbms_output.put_line('Name: '||n);
+		dbms_output.put_line('Age: '||a);
+		dbms_output.put_line('Rating: '||r);
+	end;
+/
+
+//Q 8. Write a PL/SQL program to display all multiples of 3 up to a number using while loop.
+
+declare
+	n number;
+	ans number;
+	i number;
+	begin
+		n:=&n;
+		ans:=3;
+		i:=1;
+		while ans<=n
+		loop
+			dbms_output.put_line(ans);
+			i:=i+1;
+			ans:=i*3;
+		end loop;
+	end;
+/
+
+//Q 9. Write a PL/SQL program to display multiples of 5 using for loop.
+
+declare
+	n number;
+	ans number;
+	begin
+		n:=&n;
+		for i in 1..n
+		loop
+			ans:=i*5;
+			if ans>n then
+				exit;
+			else
+				dbms_output.put_line(ans);
+			end if;
+		end loop;
+	end;
+/
+
+//Q 10. Write a PL/SQL program to calculate the salary from basic pay.
+
+declare
+	sal number;
+	bs number;
+	begin
+		bs:=&bs;
+		sal:=bs-(bs*0.2);
+		--assuming deduction is 20%
+		dbms_output.put_line('Salary: '||sal);
+	end;
+/
+
+//Q 11. Write a PL/SQL program to reverse a string.
+
+declare
+	str varchar(20);
+	n number;
+	x number;
+	ans varchar(20);
+	begin
+		str:='&str';
+		ans:='';
+		n:=length(str);
+		x:=0;
+		for i in 1..n
+		loop
+			ans:=concat(ans,substr(str,n-x,1));
+			x:=x+1;
+		end loop;
+		dbms_output.put_line(ans);
+	end;
+/
+
+//Q 12. Write a PL/SQL program to find Leap Year.
+
+declare
+	y number;
+	begin
+		y:=&y;
+		if mod(y,4)=0 and mod(y,100)!=0 or mod(y,400)=0
+			then dbms_output.put_line(y || ' is a leap year');
+		else
+			dbms_output.Put_line(y || ' is not a leap year');
+		end if;
+	end;
+/
