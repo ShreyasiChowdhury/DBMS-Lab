@@ -1,0 +1,35 @@
+CREATE TABLE tour(
+	tour_id varchar(3),
+	tour_spot varchar(15),
+	fare number(6),
+	type varchar(10)
+);
+
+CREATE SEQUENCE tour_id START WITH 1 INCREMENT BY 1;
+
+INSERT INTO tour VALUES ('T'||tour_id.nextval, '&tourspot', '&fare', '&type');
+
+
+
+// 1. Create a view TOURVIEW for deluxe type four containing two fields, tour-spot names, and fares.
+
+CREATE VIEW tourview
+AS SELECT tour_spot, fare
+FROM tour WHERE type='Deluxe';
+
+// 2. Find all the tour-spots for fare greater than 8000 and Deluxe type tour from a) TOUR table, b) TOURVIEW view.
+
+SELECT tour_spot, fare FROM tourview WHERE fare>8000;
+
+SELECT tour_spot, fare FROM tour WHERE fare>8000 AND type='Deluxe';
+
+// 3. Insert three rows to TOURVIEW. The locations will be Bangladesh, Delhi, Hyderabad.
+
+INSERT INTO tourview VALUES('Bangladesh',null);
+INSERT INTO tourview VALUES('Delhi',null);
+INSERT INTO tourview VALUES('Hyderabad',null);
+
+// 4. Display these records. Are they see in TOURVIEW view? Are they seen in TOUR table?
+
+SELECT * FROM tourview;
+SELECT * FROM tour;
