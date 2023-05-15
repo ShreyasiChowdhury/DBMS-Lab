@@ -5,7 +5,7 @@ CREATE TABLE customer(
 	cust_firstn varchar(15),
 	cust_lastn varchar(15),
 	territory varchar(15),
-	credit_limit float(6,2),
+	credit_limit number(6,2),
 	mgr_id number(3),
 	dob date,
 	marritorial_status varchar(10),
