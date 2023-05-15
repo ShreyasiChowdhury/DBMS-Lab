@@ -1,0 +1,73 @@
+// Palindrome String:
+
+declare
+	str varchar(20);
+	n number;
+	x number;
+	ans varchar(20);
+	begin
+		str:='&str';
+		ans:='';
+		n:=length(str);
+		x:=0;
+		for i in 1..n
+		loop
+			ans:=concat(ans,substr(str,n-x,1));
+			x:=x+1;
+		end loop;
+		if ans=str then
+			dbms_output.put_line(ans || ' is palindrome string');
+		else
+			dbms_output.put_line(ans || ' is not palindrome string');
+		end if;
+	end;
+/
+
+// Perfect Number:
+
+declare
+	n number;
+	s number;
+	begin
+		n:=&n;
+		s:=0;
+		for i in 1..n-1
+		loop
+			if mod(n,i)=0 then
+				s:=(s+i);
+			end if;
+		end loop;
+		if s=n then
+			dbms_output.put_line(n || ' is Perfect Number');
+		else
+			dbms_output.put_line(n || ' is not Perfect Number');
+		end if;
+	end;
+/
+
+// Armstrong Number:
+
+declare
+	n number;
+	s number;
+	r number;
+	t number;
+	len number;
+	begin
+		n:=&n;
+		t:=n;
+		s:=0;
+		len:=length(to_char(n));
+		while n>0
+		loop
+			r:=mod(n,10);
+			s:=s+power(r,len);
+			n:=floor(n/10);
+		end loop;
+		if s=t then
+			dbms_output.put_line(t || ' is Armstrong Number');
+		else
+			dbms_output.put_line(t || ' is not Armstrong Number');
+		end if;
+	end;
+/
