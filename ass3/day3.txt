@@ -72,7 +72,7 @@ WHERE TO_CHAR(dob,'YYYY')<2000;
 // 35. Show details of youngest customer
 
 SELECT * FROM customer
-WHERE ((sysdate-dob)/365)=(SELECT MIN((sysdate-dob)/365) FROM customer;
+WHERE ((sysdate-dob)/365)=(SELECT MIN((sysdate-dob)/365) FROM customer);
 
 // 36. Display full name of each customer with heading under "Full Name"
 
