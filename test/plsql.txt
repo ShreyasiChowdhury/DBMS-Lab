@@ -71,3 +71,26 @@ declare
 		end if;
 	end;
 /
+
+// Prime in range:
+
+declare
+	a number;
+	b number;
+	c number;
+	begin
+		a:=&a;
+		b:=&b;
+		for i in a..b loop
+			c:=0;
+			for j in 1..i loop
+				if mod(i,j)=0 then
+					c:=c+1;
+				end if;
+			end loop;
+			if c<=2 then
+				dbms_output.put_line(i||' ');
+			end if;
+		end loop;
+	end;
+/
