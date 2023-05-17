@@ -14,7 +14,7 @@ SELECT sname FROM sailor WHERE age > (SELECT MAX(age) FROM sailor WHERE rating=1
 SELECT MIN(age), rating FROM sailor GROUP BY rating;
 
 // 38) Find the name of each sailor who is eligible to vote for each rating level.
-SELECT COUNT(*) FROM sailor WHERE age>=18 GROUP BY rating;
+SELECT sname FROM sailor WHERE age>=18;
 
 // 39) Find the age of youngest sailor who is eligible to vote for each rating level with at least two such sailors.
 SELECT MIN(age), COUNT(*), rating FROM sailor WHERE age>=18 GROUP BY rating HAVING COUNT(*)>1;
